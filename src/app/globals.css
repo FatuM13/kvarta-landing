@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: var(--font-serif), Georgia, Cambria, serif;
+  --font-sans: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  
+  --color-cream: #FBF9F5;
+  --color-card-bg: #F4EFEA;
+  --color-espresso: #1B1614;
+  --color-roast: #2E2521;
+  --color-terracotta: #C45D3C;
+  --color-terracotta-dark: #A8482A;
+  --color-border-warm: #E7DFD5;
+  --color-muted-warm: #6C625A;
+  --color-olive-dark: #2B3828;
+}
+
+:root {
+  --background: #FBF9F5;
+  --foreground: #1B1614;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #FBF9F5;
+  color: #1B1614;
+  font-family: var(--font-sans), -apple-system, sans-serif;
+}
+
+h1, h2, h3, .font-serif {
+  font-family: var(--font-serif), Georgia, serif;
+}
+
+/* Custom subtle grain or paper texture effect */
+.kraft-border {
+  border: 1px solid #E7DFD5;
+}
+
+.craft-tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  background-color: #EDE5DC;
+  color: #2E2521;
+}
+
+/* Accessible focus ring */
+*:focus-visible {
+  outline: 2px solid #C45D3C;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
