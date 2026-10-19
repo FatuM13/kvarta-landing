@@ -84,12 +84,9 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 6. Safe asynchronous Telegram notification
+    // 6. Telegram notification (awaited to prevent early termination in Vercel serverless)
     if (saveResult.lead) {
-      // Fire and forget without blocking user response
-      sendTelegramNotification(saveResult.lead).catch((err) => {
-        console.warn('Background Telegram send failed:', err);
-      });
+      await sendTelegramNotification(saveResult.lead);
     }
 
     return NextResponse.json(
