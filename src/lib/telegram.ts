@@ -21,19 +21,19 @@ export async function sendTelegramNotification(lead: LeadRecord): Promise<boolea
       : '☕ Разовый заказ';
 
   const parts = [
-    `☕ *Новая заявка в «Кварта»*`,
+    `☕ <b>Новая заявка в «Кварта»</b>`,
     ``,
-    `👤 *Имя:* ${escapeTelegramMarkdown(lead.name)}`,
-    `📞 *Телефон:* \`${lead.phone_normalized}\``,
-    `🎯 *Интерес:* ${interestLabel}`,
+    `👤 <b>Имя:</b> ${escapeHtml(lead.name)}`,
+    `📞 <b>Телефон:</b> <code>${escapeHtml(lead.phone_normalized)}</code>`,
+    `🎯 <b>Интерес:</b> ${escapeHtml(interestLabel)}`,
   ];
 
   if (lead.product_context) {
-    parts.push(`🏷 *Товар:* ${escapeTelegramMarkdown(lead.product_context)}`);
+    parts.push(`🏷 <b>Товар:</b> ${escapeHtml(lead.product_context)}`);
   }
 
   if (lead.comment) {
-    parts.push(`💬 *Комментарий:* ${escapeTelegramMarkdown(lead.comment)}`);
+    parts.push(`💬 <b>Комментарий:</b> ${escapeHtml(lead.comment)}`);
   }
 
   const utmParts = [];
@@ -42,7 +42,7 @@ export async function sendTelegramNotification(lead: LeadRecord): Promise<boolea
   if (lead.utm_campaign) utmParts.push(`campaign: ${lead.utm_campaign}`);
 
   if (utmParts.length > 0) {
-    parts.push(``, `📊 *Рекламный источник:* ${escapeTelegramMarkdown(utmParts.join(' | '))}`);
+    parts.push(``, `📊 <b>Рекламный источник:</b> ${escapeHtml(utmParts.join(' | '))}`);
   }
 
   parts.push(``, `🆔 Заявка #${lead.id.slice(0, 8)}`);
@@ -59,7 +59,7 @@ export async function sendTelegramNotification(lead: LeadRecord): Promise<boolea
       body: JSON.stringify({
         chat_id: chatId,
         text,
-        parse_mode: 'Markdown',
+        parse_mode: 'HTML',
       }),
       signal: controller.signal,
     });
@@ -80,6 +80,9 @@ export async function sendTelegramNotification(lead: LeadRecord): Promise<boolea
   }
 }
 
-function escapeTelegramMarkdown(text: string): string {
-  return text.replace(/[_*[\]()~`>#+-=|{}.!]/g, '\\$&');
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
 }
