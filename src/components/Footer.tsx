@@ -71,7 +71,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="pt-8 border-t border-[#3B302B] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#7A6E65]">
           <div>
-            © {currentYear} Мастерская кофе «Кварта». Все права защищены.
+            © 2019-{currentYear} Мастерская кофе «Кварта». Все права защищены.
           </div>
           <div>
             Локальная независимая обжарка в Минске

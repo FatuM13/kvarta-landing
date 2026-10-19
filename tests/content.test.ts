@@ -64,4 +64,12 @@ describe('Landing Page Content & Pricing Specification Compliance', () => {
     expect(storyFile).toContain('5 кг');
     expect(storyFile).toContain('2019');
   });
+
+  it('contains correct copyright text in Footer', () => {
+    const footerFile = fs.readFileSync(
+      path.join(process.cwd(), 'src/components/Footer.tsx'),
+      'utf-8'
+    );
+    expect(footerFile).toContain('© 2019-{currentYear} Мастерская кофе «Кварта». Все права защищены.');
+  });
 });
